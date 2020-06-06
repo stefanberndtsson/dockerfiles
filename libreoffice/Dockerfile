@@ -18,4 +18,10 @@ RUN apk --no-cache add \
 	libreoffice \
 	ttf-dejavu
 
+RUN addgroup -g 998 hostwheel \
+ && adduser -u 1000 -G hostwheel -D appuser
+
+USER appuser
+WORKDIR /home/appuser
+
 ENTRYPOINT [ "libreoffice" ]

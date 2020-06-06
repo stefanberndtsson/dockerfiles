@@ -23,6 +23,9 @@ RUN apt-get update && apt-get install -y \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
+RUN groupadd -g 998 wheel \
+ && useradd -m -u 1000 -g 998 appuser
+
 ENV LANG en-US
 
 COPY local.conf /etc/fonts/local.conf
@@ -30,5 +33,8 @@ COPY local.conf /etc/fonts/local.conf
 RUN echo 'pref("browser.tabs.remote.autostart", false);' >> /etc/firefox/syspref.js
 
 COPY entrypoint.sh /usr/bin/startfirefox
+
+USER appuser
+WORKDIR /home/appuser
 
 ENTRYPOINT [ "startfirefox" ]

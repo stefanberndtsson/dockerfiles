@@ -16,4 +16,10 @@ RUN apt-get update && apt-get install -y \
 	--no-install-recommends \
 	&& rm -rf /var/lib/apt/lists/*
 
+RUN groupadd -g 998 wheel \
+ && useradd -m -u 1000 -g 998 appuser
+
+USER appuser
+WORKDIR /home/appuser
+
 ENTRYPOINT [ "gimp" ]
