@@ -24,7 +24,8 @@ RUN apt-get update && apt-get install -y \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN groupadd -g 998 wheel \
- && useradd -m -u 1000 -g 998 appuser
+ && groupadd -g 995 audioarch \
+ && useradd -m -u 1000 -g 998 -G 995 appuser
 
 ENV LANG en-US
 
